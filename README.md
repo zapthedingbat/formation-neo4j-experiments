@@ -21,4 +21,5 @@ npm i
   `docker run -p 7474:7474 -7687:7687 -v./neo4j/data:/data -v./neo4j/logs:/logs neo4j`
 - Navigate to http://localhost:7474/ in your browser to access neo4j and set the password
 - Set the `NEO4J_PASSWORD` environment variable
+- Set the `FORMATION_API_ENDPOINT` environment variable to the formation api endpoint that you want to use.
 - Start to importing content `npm start`

@@ -9,6 +9,12 @@ if(!neo4jPassword){
     throw new Error('NEO4J_PASSWORD environment variable is not set');
 }
 
+// We're gonna need an api
+const formationApiEndpoint = process.env.FORMATION_API_ENDPOINT;
+if(!formationApiEndpoint){
+    throw new Error('FORMATION_API_ENDPOINT environment variable is not set');
+}
+
 const auth = neo4j.v1.auth.basic(process.env.NEO4J_USER || 'neo4j', neo4jPassword);
 const driver = neo4j.v1.driver(process.env.NEO4J_URL || 'bolt://localhost', auth);
 
@@ -16,12 +22,12 @@ const driver = neo4j.v1.driver(process.env.NEO4J_URL || 'bolt://localhost', auth
 const RETRY_TIMEOUT = 5000;
 
 // Configurations for the import
-const FORMATION_API_ENDPOINT = 'https://voguede-api.aws.conde.io/search?size=200';
+const FORMATION_API_SEARCH_URL = `${formationApiEndpoint}/search?size=200`;
 const BRAND = 'vogue';
 const MARKET = 'de';
 
 // Start with the first page of the search results
-processPage(FORMATION_API_ENDPOINT, BRAND, MARKET)
+processPage(FORMATION_API_SEARCH_URL, BRAND, MARKET)
 .then(() => {
     driver.close();
     console.log('Done');

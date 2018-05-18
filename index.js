@@ -16,7 +16,7 @@ const driver = neo4j.v1.driver(process.env.NEO4J_URL || 'bolt://localhost', auth
 const RETRY_TIMEOUT = 5000;
 
 // Configurations for the import
-const FORMATION_API_ENDPOINT = 'https://voguede-api.aws.conde.io/search?size=200&types=article&page=18';
+const FORMATION_API_ENDPOINT = 'https://voguede-api.aws.conde.io/search?size=200';
 const BRAND = 'vogue';
 const MARKET = 'de';
 
@@ -31,7 +31,7 @@ processPage(FORMATION_API_ENDPOINT, BRAND, MARKET)
 })
 
 let totalHits;
-let progress = 3600;
+let progress = 0;
 
 // Processes a page of results from the formation Content API
 function processPage(url, brand, market){
